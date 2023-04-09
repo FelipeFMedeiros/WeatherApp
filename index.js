@@ -13,8 +13,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const {APIKEY, API_KEY} = process.env;
 
-.env
-
 // Pesquisar apertando a tecla "ENTER"
 const searchInput = document.querySelector('.search-box input');
 
