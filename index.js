@@ -1,4 +1,4 @@
-//! Declarando dados importantes
+// Declarando dados importantes
 const container = document.querySelector('.container');
 const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
@@ -9,7 +9,7 @@ const Calendar = document.querySelector('.calendar');
 const weekName = document.querySelector('.week-name');
 
 
-//! Pesquisar apertando a tecla "ENTER"
+// Pesquisar apertando a tecla "ENTER"
 const searchInput = document.querySelector('.search-box input');
 
 searchInput.addEventListener('keyup', function (event) {
@@ -19,10 +19,21 @@ searchInput.addEventListener('keyup', function (event) {
 });
 
 
-//! Evento ao apertar o botão de pesquisa
-search.addEventListener('click', () => {
+// Função de desabilitar o botão para evitar bugs
+function disableButton() {
+    search.disabled = true;
+    setTimeout (function() {
+    search.disabled = false;
+    }, 1200);
+    search.style.transform = "none";
+    search.style.boxShadow = "none";
+}
 
-    //! Transição ao apertar o botão
+
+// Evento ao apertar o botão de pesquisa
+search.addEventListener('click', () => {
+    disableButton(); // Acionando a função de desabilitar o botão
+    // Transição ao apertar o botão
     const buttonOriginalColor = search.style.color; // salva a cor original do botão
     const buttonOriginalTransform = search.style.transform; // salva o transform original do botão
     const buttonOriginalBackground = search.style.background; // salva a cor do background original do botão
@@ -36,7 +47,7 @@ search.addEventListener('click', () => {
     }, { once: true }); // remove o listener após a transição ocorrer uma vez
 
 
-    //! Script para funcionar tudo
+    // Script para funcionar tudo
     const APIKey = 'b8e9cc118639cd4491d6aae15fd2b57e'; // API do Openweathermap
     const city = document.querySelector('.search-box input').value;
 
@@ -48,7 +59,7 @@ search.addEventListener('click', () => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=pt_br&appid=${APIKey}`)
         .then(response => response.json())
 
-        //! Puxando fatores climáticos e cidade
+        // Puxando fatores climáticos e cidade
         .then(json => {
             if (json.cod === '404') {
                 container.style.height = '400px';
@@ -61,7 +72,7 @@ search.addEventListener('click', () => {
             }
             error404.style.display = 'none';
             error404.classList.remove('fadeIn');
-
+            
             const image = document.querySelector('.weather-box img');
             const temperature = document.querySelector('.weather-box .temperature');
             const description = document.querySelector('.weather-box .description');
@@ -136,6 +147,7 @@ search.addEventListener('click', () => {
                 default:
                     image.src = '';
             }
+
             console.log(`Tempo: ${json.weather[0].main}`);
             temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
             description.innerHTML = `${json.weather[0].description}`;
@@ -149,7 +161,7 @@ search.addEventListener('click', () => {
             container.style.height = '650px';
 
 
-            //! Puxando dias
+            // Puxando dias
             const timezoneOffset = json.timezone;
             const currentDate = new Date((json.dt + timezoneOffset) * 1000);
 
@@ -166,7 +178,7 @@ search.addEventListener('click', () => {
             console.log(`=> ${dayOfWeek}, ${dayOfMonth} de ${month} de ${year}`);
 
 
-            //! Obter hora da cidade
+            // Obter hora da cidade
             const API_KEY = '3J2V8MCLVT2Z'; // API do TimeZoneDB
             const lat = json.coord.lat;
             const lon = json.coord.lon;
@@ -179,10 +191,10 @@ search.addEventListener('click', () => {
                 .then(response => response.json())
                 .then(data => {
 
-                    //! Salvando a hora
+                    // Salvando a hora
                     const formattedTime = data.formatted;
 
-                    //! Manipular dados de hora
+                    // Manipular dados de hora
                     const hour = document.querySelector('.weather-box .hour');
 
                     const timestamp = data.timestamp;
@@ -196,7 +208,7 @@ search.addEventListener('click', () => {
                     console.log(`Fuso Horário: ${cityTimezone}`);
                     console.log(`"formatted": "${formattedTime}"`);
 
-                    //! Definindo se está de dia ou de noite
+                    // Definindo se está de dia ou de noite
 
                     if (hora >= 18 && json.weather[0].main == 'Clear' || hora <= 4 && json.weather[0].main == 'Clear') {
                         //console.log('Está de noite, contudo a imagem foi alterada.');
@@ -213,4 +225,5 @@ search.addEventListener('click', () => {
             //return fetch(timezoneURL);
 
         })
+
 });
