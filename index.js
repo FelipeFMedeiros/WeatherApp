@@ -9,11 +9,6 @@ const Calendar = document.querySelector('.calendar');
 const weekName = document.querySelector('.week-name');
 
 
-const secret = process.env.APIKey;
-console.log(secret);
-console.log("Secret acima!");
-
-
 // Pesquisar apertando a tecla "ENTER"
 const searchInput = document.querySelector('.search-box input');
 
