@@ -8,6 +8,12 @@ const calendarBox = document.querySelector('.box-calendar');
 const Calendar = document.querySelector('.calendar');
 const weekName = document.querySelector('.week-name');
 
+// Verificando o .dotenv
+const dotenv = require('dotenv');
+dotenv.config();
+const {APIKEY, API_KEY} = process.env;
+
+.env
 
 // Pesquisar apertando a tecla "ENTER"
 const searchInput = document.querySelector('.search-box input');
