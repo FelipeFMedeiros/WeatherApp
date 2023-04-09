@@ -11,6 +11,7 @@ const weekName = document.querySelector('.week-name');
 
 const secret = process.env.APIKey;
 console.log(secret);
+console.log("Secret acima!");
 
 
 // Pesquisar apertando a tecla "ENTER"
