@@ -48,7 +48,7 @@ search.addEventListener('click', () => {
 
 
     // Script para funcionar tudo
-    const APIKey = 'b8e9cc118639cd4491d6aae15fd2b57e'; // API do Openweathermap
+    const APIKey = ${{ secrets.APIKey }}; // API do Openweathermap
     const city = document.querySelector('.search-box input').value;
 
     console.log(`*** BUSCANDO EM: ${city} ***`);
@@ -179,7 +179,7 @@ search.addEventListener('click', () => {
 
 
             // Obter hora da cidade
-            const API_KEY = '3J2V8MCLVT2Z'; // API do TimeZoneDB
+            const API_KEY = ${{ secrets.API_KEY }}; // API do TimeZoneDB
             const lat = json.coord.lat;
             const lon = json.coord.lon;
             //console.log(`Latitude: ${lat}`);  // Mostrar a latitude da cidade puxada no console
